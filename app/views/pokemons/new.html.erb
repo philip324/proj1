@@ -1,0 +1,9 @@
+<h1> Create Your New Pokemon </h1>
+<% if flash[:error] %>
+  <p> <%= flash[:error] %> </p>
+<% end %>
+
+<%= form_for @pokemon do |f| %>
+  <b> Name: <%= f.text_field :name %> </b>
+  <%= f.submit %>
+<% end %>

@@ -1,0 +1,42 @@
+<h3>Trainer</h3>
+<p>Name: <%= @trainer.name if @trainer.name %></p>
+<p>Email: <%= @trainer.email if @trainer.email %></p>
+
+<b> The Pokemons Being Trained By This Person </b>
+<p> </p>
+<% if @trainer == current_trainer %>
+	<% currentindex = 1 %>
+	<% @trainer.pokemons.each do |pokemon| %>
+  		<p> <%= currentindex %>. Name: <%= pokemon.name %> </p>
+  		<p> Level: <%= pokemon.level %> </p>
+  		<p> Health: <%= pokemon.health %> </p>
+  		<%= button_to "Damage!", damage_path(id: pokemon), :class => "button medium", :method => :patch %>
+    	<%= button_to "Heal!", heal_path(id: pokemon), :class => "button medium", :method => :patch %>
+    	<% currentindex = currentindex + 1 %>
+    <% end %>
+	<% if currentindex < 2 %>
+		<p> You are not Training any Pokemon! </p>
+	<% end %>
+  <%= button_to "Create Pokemon!", new_pokemon_path, :class => "button medium", :method => :get %>
+<% end %>
+
+<% if @trainer != current_trainer %>
+	<% otherindex = 1 %>
+	<% @trainer.pokemons.each do |pokemon| %>
+		<% if pokemon.health > 10 %>
+			<p> <%= otherindex %>. Name: <%= pokemon.name %> </p>
+  			<p> Level: <%= pokemon.level %> </p>
+  			<p> Health: <%= pokemon.health %> </p>
+  			<%= button_to "Damage!", damage_path(id: pokemon), :class => "button medium", :method => :patch %>
+  			<% otherindex = otherindex + 1 %>
+  		<% end %>
+  	<% end %>
+  	<% if otherindex < 2 %>
+		<p> This Person is not Training any Pokemon! </p>
+	<% end %>
+<% end %>
+
+
+
+
+
